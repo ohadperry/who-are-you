@@ -14,3 +14,17 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+
+(function($) {
+    FB.Event.subscribe('auth.login', function(r)
+        {
+            console.log('ohad' + r.status);
+
+            if ( r.status === 'connected' )
+            {
+                // a user has logged in
+            }
+        }
+    );
+});
