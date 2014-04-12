@@ -1,10 +1,88 @@
+<html>
+<head>
+  <title>Open Graph Getting Started App - og.likes</title>
+  <style type="text/css">
+      div { padding: 10px; }
+  </style>
+  <meta charset="UTF-8">
+</head>
+<body>
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=727304957314097";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<script type="text/javascript">
 
-<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
+    // Additional JS functions here
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '727304957314097', // App ID
+            status     : true,    // check login status
+            cookie     : true,    // enable cookies to allow the
+            // server to access the session
+            xfbml      : true     // parse page for xfbml or html5
+            // social plugins like login button below
+        });
+        FB.getLoginStatus(function (response) {
+            if (response.authResponse) {
+                var providerName = 'facebook'
+                $.ajax({
+                    type: 'post',
+                    url: '/authentications/' + providerName + '/respond',
+                    dataType: 'json',
+                    data: {
+                        auth_result : response.authResponse.accessToken
+                    },
+                    success: function(response) {
+                        alert(response)
+                    },
+                    error: function() {
+                        alert(response)
+                    }
+                });
+            } else {
+                // do something...maybe show a login prompt
+            }
+        });
+
+        // Put additional init code here
+    };
+
+    // Load the SDK Asynchronously
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    $(document).ready(function () {
+
+
+    });
+</script>
+
+<!--
+  Login Button
+
+  https://developers.facebook.com/docs/reference/plugins/login
+
+  This example needs the 'publish_actions' permission in
+  order to publish an action.  The scope parameter below
+  is what prompts the user for that permission.
+-->
+
+<div
+class="fb-login-button"
+data-show-faces="true"
+data-width="200"
+data-max-rows="1"
+data-scope="publish_actions">
+</div>
+
+
+
+<div id="result"></div>
+
+</body>
+</html>
+
+<input id="AccessToken" type="text" value="" />
