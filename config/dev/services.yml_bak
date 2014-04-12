@@ -1,0 +1,8 @@
+defaults: &defaults
+  facebook_graph_service:
+    url: https://graph.facebook.com/me
+
+development:
+  <<: *defaults
+  users_service: #aka identites
+    url: http://localhost:2001/api/v1/

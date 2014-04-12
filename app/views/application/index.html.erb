@@ -31,10 +31,10 @@
                         auth_result : response.authResponse.accessToken
                     },
                     success: function(response) {
-                        alert(response)
+                        console.log('success' + response);
                     },
                     error: function() {
-                        alert(response)
+                        console.log('error' +response);
                     }
                 });
             } else {
