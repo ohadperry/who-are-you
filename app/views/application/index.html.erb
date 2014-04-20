@@ -28,7 +28,8 @@
                     url: '/authentications/' + providerName + '/respond',
                     dataType: 'json',
                     data: {
-                        auth_result : response.authResponse.accessToken
+                        auth_result : response.authResponse.accessToken,
+                        user_id : response.authResponse.userID
                     },
                     success: function(response) {
                         console.log('success' + response);
